@@ -55,9 +55,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # For static files in production
-    'corsheaders.middleware.CorsMiddleware',  # Must be before CommonMiddleware
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ← THIS MUST BE HERE (2nd position)
+    'django.contrib.sessions.middleware.SessionMiddleware',  # ← This should be 3rd
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
