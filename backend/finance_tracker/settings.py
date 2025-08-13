@@ -381,3 +381,6 @@ STATICFILES_DIRS = []
 # Override for Heroku
 if os.environ.get('DATABASE_URL'):
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+    import django_heroku
+django_heroku.settings(locals())
