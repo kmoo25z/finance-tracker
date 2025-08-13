@@ -172,12 +172,10 @@ REST_FRAMEWORK = {
 # CORS configuration
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+ "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "http://localhost:8080",
-    "http://127.0.0.1:8080",
+    "https://splendorous-kheer-70d1ce.netlify.app",  # Your Netlify app
 ]
-
 # If you want to allow all origins during development (not recommended for production)
 # CORS_ALLOW_ALL_ORIGINS = True
 
@@ -366,3 +364,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # File upload settings
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10MB
+
+
+# Override settings for Heroku
+import os
+if os.environ.get('DATABASE_URL'):
+    CORS_ALLOW_ALL_ORIGINS = True
+    ALLOWED_HOSTS = ['*']
+    DEBUG = False
