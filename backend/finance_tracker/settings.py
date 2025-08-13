@@ -55,8 +55,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ← THIS MUST BE HERE (2nd position)
-    'django.contrib.sessions.middleware.SessionMiddleware',  # ← This should be 3rd
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # MUST be second
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -364,3 +364,20 @@ if os.environ.get('DATABASE_URL'):
     CORS_ALLOW_ALL_ORIGINS = True
     ALLOWED_HOSTS = ['*']
     DEBUG = False
+
+
+
+    # Static files - WhiteNoise configuration
+import os
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# CRITICAL: This makes WhiteNoise work
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Ensure static files are collected
+STATICFILES_DIRS = []
+
+# Override for Heroku
+if os.environ.get('DATABASE_URL'):
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
